@@ -1,12 +1,12 @@
 'use strict';
 
-const semver = require('semver');
+var semver = require('semver');
 
 module.exports = function(opts, cb) {
-  let str = opts.str;
+  var str = opts.str;
   opts.key = opts.key || 'version';
 
-  let regex = opts.regex || new RegExp(
+  var regex = opts.regex || new RegExp(
     '([\'|\"]?' + opts.key + '[\'|\"]?[ ]*:[ ]*[\'|\"]?)(\\d+\\.\\d+\\.\\d+(-' +
     opts.preid +
     '\\.\\d+)?(-\\d+)?)[\\d||A-a|.|-]*([\'|\"]?)', 'i');
@@ -15,13 +15,13 @@ module.exports = function(opts, cb) {
     regex = new RegExp(regex.source, 'gi');
   }
 
-  let parsedOut;
+  var parsedOut;
   str = str.replace(regex, function(match, prefix, parsed, pre, nopre, suffix) {
     parsedOut = parsed;
     if (!semver.valid(parsed) && !opts.version) {
       return cb('Invalid semver ' + parsed);
     }
-    const version = opts.version || semver.inc(parsed, (opts.type || 'patch'), opts.preid);
+    var version = opts.version || semver.inc(parsed, (opts.type || 'patch'), opts.preid);
     return prefix + version + (suffix || '');
   });
 

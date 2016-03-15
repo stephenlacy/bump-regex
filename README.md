@@ -28,7 +28,7 @@
 $ npm install --save bump-regex
 ```
 
-``js
+```js
 
 var bump = require('bump-regex');
 

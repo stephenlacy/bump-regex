@@ -20,7 +20,7 @@
     "test": "lab test/*.js -v"
   },
   "engines": {
-    "node": ">= 0.9.0"
+    "node": ">= 0.12.0"
   },
   "license": "MIT",
   "bugs": {
