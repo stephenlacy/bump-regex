@@ -13,7 +13,7 @@ lab.experiment(PROJECT_NAME, function() {
   lab.test('no options', function(done) {
     project(options, function(err, out) {
       code.expect(err).to.equal(null);
-      code.expect(out).to.equal('{"version":"0.1.1"}');
+      code.expect(out.str).to.equal('{"version":"0.1.1"}');
       done();
     });
   });
@@ -23,7 +23,7 @@ lab.experiment(PROJECT_NAME, function() {
     opts.type = 'patch';
     project(opts, function(err, out) {
       code.expect(err).to.equal(null);
-      code.expect(out).to.equal('{"version":"0.1.1"}');
+      code.expect(out.str).to.equal('{"version":"0.1.1"}');
       done();
     });
   });
@@ -33,7 +33,7 @@ lab.experiment(PROJECT_NAME, function() {
     opts.type = 'minor';
     project(opts, function(err, out) {
       code.expect(err).to.equal(null);
-      code.expect(out).to.equal('{"version":"0.2.0"}');
+      code.expect(out.str).to.equal('{"version":"0.2.0"}');
       done();
     });
   });
@@ -43,7 +43,7 @@ lab.experiment(PROJECT_NAME, function() {
     opts.type = 'major';
     project(opts, function(err, out) {
       code.expect(err).to.equal(null);
-      code.expect(out).to.equal('{"version":"1.0.0"}');
+      code.expect(out.str).to.equal('{"version":"1.0.0"}');
       done();
     });
   });
@@ -53,7 +53,7 @@ lab.experiment(PROJECT_NAME, function() {
     opts.version = '3.2.1';
     project(opts, function(err, out) {
       code.expect(err).to.equal(null);
-      code.expect(out).to.equal('{"version":"3.2.1"}');
+      code.expect(out.str).to.equal('{"version":"3.2.1"}');
       done();
     });
   });
@@ -65,7 +65,7 @@ lab.experiment(PROJECT_NAME, function() {
     };
     project(opts, function(err, out) {
       code.expect(err).to.equal(null);
-      code.expect(out).to.equal('{"appversion":"0.1.1"}');
+      code.expect(out.str).to.equal('{"appversion":"0.1.1"}');
       done();
     });
 
@@ -80,7 +80,7 @@ lab.experiment(PROJECT_NAME, function() {
 
     project(opts, function(err, out) {
       code.expect(err).to.equal(null);
-      code.expect(out).to.equal('{"version":"0.1.1-thing.0"}');
+      code.expect(out.str).to.equal('{"version":"0.1.1-thing.0"}');
       done();
     });
 
@@ -95,7 +95,7 @@ lab.experiment(PROJECT_NAME, function() {
 
     project(opts, function(err, out) {
       code.expect(err).to.equal(null);
-      code.expect(out).to.equal('{"version":"0.1.0-thing.1"}');
+      code.expect(out.str).to.equal('{"version":"0.1.0-thing.1"}');
       done();
     });
 
@@ -114,7 +114,7 @@ lab.experiment(PROJECT_NAME, function() {
 
     project(opts, function(err, out) {
       code.expect(err).to.equal(null);
-      code.expect(out).to.equal('{"version":"0.1.1","test":{"version":"0.1.3"}}');
+      code.expect(out.str).to.equal('{"version":"0.1.1","test":{"version":"0.1.3"}}');
       done();
     });
 
@@ -126,7 +126,7 @@ lab.experiment(PROJECT_NAME, function() {
     };
     project(opts, function(err, out) {
       code.expect(err).to.equal(null);
-      code.expect(out).to.equal('swift \n Version: "0.1.3"');
+      code.expect(out.str).to.equal('swift \n Version: "0.1.3"');
       done();
     });
   });
@@ -137,6 +137,35 @@ lab.experiment(PROJECT_NAME, function() {
     };
     project(opts, function(err) {
       code.expect(err).to.equal('Invalid semver');
+      done();
+    });
+  });
+
+  lab.test('return new version', function(done) {
+    var opts = {
+      str: JSON.stringify({version: '1.2.0'})
+    };
+    project(opts, function(err, out) {
+      code.expect(out.new).to.equal('1.2.1');
+      done();
+    });
+  });
+
+  lab.test('return update type', function(done) {
+    var opts = {
+      str: JSON.stringify({version: '1.2.0'})
+    };
+    project(opts, function(err, out) {
+      code.expect(out.type).to.equal('patch');
+      done();
+    });
+  });
+  lab.test('return prev version', function(done) {
+    var opts = {
+      str: JSON.stringify({version: '1.2.0'})
+    };
+    project(opts, function(err, out) {
+      code.expect(out.prev).to.equal('1.2.0');
       done();
     });
   });

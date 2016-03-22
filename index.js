@@ -1,9 +1,10 @@
 'use strict';
 
 var semver = require('semver');
+var clone = require('lodash.clone');
 
-module.exports = function(opts, cb) {
-  var str = opts.str;
+module.exports = function(options, cb) {
+  var opts = clone(options);
   opts.key = opts.key || 'version';
 
   var regex = opts.regex || new RegExp(
@@ -16,12 +17,15 @@ module.exports = function(opts, cb) {
   }
 
   var parsedOut;
-  str = str.replace(regex, function(match, prefix, parsed, pre, nopre, suffix) {
+  opts.str = opts.str.replace(regex, function(match, prefix, parsed, pre, nopre, suffix) {
     parsedOut = parsed;
     if (!semver.valid(parsed) && !opts.version) {
       return cb('Invalid semver ' + parsed);
     }
-    var version = opts.version || semver.inc(parsed, (opts.type || 'patch'), opts.preid);
+    opts.type = opts.type || 'patch';
+    var version = opts.version || semver.inc(parsed, opts.type, opts.preid);
+    opts.prev = parsed;
+    opts.new = version;
     return prefix + version + (suffix || '');
   });
 
@@ -29,6 +33,6 @@ module.exports = function(opts, cb) {
     return cb('Invalid semver');
   }
 
-  return cb(null, str);
+  return cb(null, opts);
 };
 
