@@ -136,7 +136,7 @@ lab.experiment(PROJECT_NAME, function() {
       str: 'swift \n Version: "0.A.2"'
     };
     project(opts, function(err) {
-      code.expect(err).to.equal('Invalid semver');
+      code.expect(err).to.equal('Invalid semver: version key "version" is not found in file');
       done();
     });
   });

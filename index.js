@@ -30,7 +30,7 @@ module.exports = function(options, cb) {
   });
 
   if (!parsedOut) {
-    return cb('Invalid semver');
+    return cb('Invalid semver: version key "' + opts.key + '" is not found in file');
   }
 
   return cb(null, opts);
