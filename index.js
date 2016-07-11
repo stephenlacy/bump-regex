@@ -9,8 +9,7 @@ module.exports = function(options, cb) {
 
   var regex = opts.regex || new RegExp(
     '([\'|\"]?' + opts.key + '[\'|\"]?[ ]*:[ ]*[\'|\"]?)(\\d+\\.\\d+\\.\\d+(-' +
-    opts.preid +
-    '\\.\\d+)?(-\\d+)?)[\\d||A-a|.|-]*([\'|\"]?)', 'i');
+    '(?:[0-9A-Za-z-]+)\\.\\d+)?(-\\d+)?)[\\d||A-a|.|-]*([\'|\"]?)', 'i');
 
   if (opts.global) {
     regex = new RegExp(regex.source, 'gi');
@@ -35,4 +34,3 @@ module.exports = function(options, cb) {
 
   return cb(null, opts);
 };
-
