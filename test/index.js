@@ -101,6 +101,34 @@ lab.experiment(PROJECT_NAME, function() {
 
   });
 
+  lab.test('update existing prerelease without preid', function(done) {
+    var opts = {
+      str: JSON.stringify({version: '0.1.0-rc.0'}),
+      type: 'prerelease'
+    };
+
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"version":"0.1.0-rc.1"}');
+      done();
+    });
+
+  });
+
+  lab.test('remove prerelease with patch', function(done) {
+    var opts = {
+      str: JSON.stringify({version: '0.1.0-rc.0'}),
+      type: 'patch'
+    };
+
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"version":"0.1.0"}');
+      done();
+    });
+
+  });
+
   lab.test('set global', function(done) {
     var opts = {
       str: JSON.stringify({
@@ -160,6 +188,7 @@ lab.experiment(PROJECT_NAME, function() {
       done();
     });
   });
+
   lab.test('return prev version', function(done) {
     var opts = {
       str: JSON.stringify({version: '1.2.0'})
