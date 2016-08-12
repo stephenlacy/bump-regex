@@ -4,6 +4,11 @@ var semver = require('semver');
 var clone = require('lodash.clone');
 
 module.exports = function(options, cb) {
+  if (typeof options === 'string') {
+    options = {
+      str: options
+    }
+  }
   var opts = clone(options);
   opts.key = opts.key || 'version';
   opts.type = opts.type || 'patch';
