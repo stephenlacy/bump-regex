@@ -6,22 +6,23 @@ var clone = require('lodash.clone');
 module.exports = function(options, cb) {
   var opts = clone(options);
   opts.key = opts.key || 'version';
+  opts.type = opts.type || 'patch';
 
   var regex = opts.regex || new RegExp(
-    '([\'|\"]?' + opts.key + '[\'|\"]?[ ]*:[ ]*[\'|\"]?)(\\d+\\.\\d+\\.\\d+(-' +
-    '(?:[0-9A-Za-z-]+)\\.\\d+)?(-\\d+)?)[\\d||A-a|.|-]*([\'|\"]?)', 'i');
+    '([\'|\"]?' + opts.key + '[\'|\"]?[ ]*:[ ]*[\'|\"]?)(\\d+\\.\\d+\\.\\d+)' +
+    '(-[0-9A-Za-z\.-]+)?([\'|\"]?)', 'i');
 
   if (opts.global) {
     regex = new RegExp(regex.source, 'gi');
   }
 
   var parsedOut;
-  opts.str = opts.str.replace(regex, function(match, prefix, parsed, pre, nopre, suffix) {
+  opts.str = opts.str.replace(regex, function(match, prefix, parsed, prerelease, suffix) {
+    parsed = parsed + (prerelease || '')
     parsedOut = parsed;
     if (!semver.valid(parsed) && !opts.version) {
       return cb('Invalid semver ' + parsed);
     }
-    opts.type = opts.type || 'patch';
     var version = opts.version || semver.inc(parsed, opts.type, opts.preid);
     opts.prev = parsed;
     opts.new = version;

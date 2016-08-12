@@ -128,6 +128,19 @@ lab.experiment(PROJECT_NAME, function() {
     });
 
   });
+  lab.test('remove prerelease with patch when alpha tag has no version', function(done) {
+    var opts = {
+      str: JSON.stringify({version: '0.1.0-noversion'}),
+      type: 'patch'
+    };
+
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"version":"0.1.0"}');
+      done();
+    });
+
+  });
 
   lab.test('set global', function(done) {
     var opts = {
