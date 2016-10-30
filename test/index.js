@@ -222,4 +222,15 @@ lab.experiment(PROJECT_NAME, function() {
       done();
     });
   });
+
+  lab.test('bump version with a prefix', function(done) {
+    var opts = {
+      str: 'version=v1.0.0'
+    };
+    project(opts, function(err, out) {
+      code.expect(out.new).to.equal('1.0.1');
+      code.expect(out.str).to.equal('version=v1.0.1');
+      done();
+    });
+  });
 });
