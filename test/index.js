@@ -211,4 +211,15 @@ lab.experiment(PROJECT_NAME, function() {
       done();
     });
   });
+
+  lab.test('bump version in xml files', function(done) {
+    var opts = {
+      str: '<version="1.0.0">'
+    };
+    project(opts, function(err, out) {
+      code.expect(out.new).to.equal('1.0.1');
+      code.expect(out.str).to.equal('<version="1.0.1">');
+      done();
+    });
+  });
 });

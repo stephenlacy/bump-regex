@@ -14,7 +14,7 @@ module.exports = function(options, cb) {
   opts.type = opts.type || 'patch';
 
   var regex = opts.regex || new RegExp(
-    '([\'|\"]?' + opts.key + '[\'|\"]?[ ]*:[ ]*[\'|\"]?)(\\d+\\.\\d+\\.\\d+)' +
+    '([\'|\"]?' + opts.key + '[\'|\"]?[ ]*[:=][ ]*[\'|\"]?)(\\d+\\.\\d+\\.\\d+)' +
     '(-[0-9A-Za-z\.-]+)?([\'|\"]?)', 'i');
 
   if (opts.global) {
