@@ -10,8 +10,8 @@
   "author": "Steve Lacy <me@slacy.me> (http://slacy.me)",
   "main": "./index.js",
   "dependencies": {
-    "lodash.clone": "^4.3.1",
-    "semver": "^5.1.0"
+    "semver": "^5.1.0",
+    "xtend": "^4.0.1"
   },
   "devDependencies": {
     "code": "^2.1.0",

@@ -1,7 +1,7 @@
 'use strict';
 
 var semver = require('semver');
-var clone = require('lodash.clone');
+var extend = require('xtend')
 
 module.exports = function(options, cb) {
   if (typeof options === 'string') {
@@ -9,9 +9,13 @@ module.exports = function(options, cb) {
       str: options
     }
   }
-  var opts = clone(options);
-  opts.key = opts.key || 'version';
-  opts.type = opts.type || 'patch';
+
+  var defaultOpts = {
+    key: 'version',
+    type: 'patch'
+  }
+
+  var opts = extend(defaultOpts, options);
 
   var regex = opts.regex || new RegExp(
     '([\'|\"]?' + opts.key + '[\'|\"]?[ ]*[:=][ ]*[\'|\"]?.?)(\\d+\\.\\d+\\.\\d+)' +
