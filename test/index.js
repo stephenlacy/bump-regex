@@ -233,4 +233,37 @@ lab.experiment(PROJECT_NAME, function() {
       done();
     });
   });
+
+  lab.test('set a 4 char version without adding a character', function(done) {
+    var opts = {
+      str: 'version=11.0.0'
+    };
+    project(opts, function(err, out) {
+      code.expect(out.new).to.equal('11.0.1');
+      code.expect(out.str).to.equal('version=11.0.1');
+      done();
+    });
+  });
+
+  lab.test('set a 4 char version with a version prefix character', function(done) {
+    var opts = {
+      str: 'version=r11.0.0'
+    };
+    project(opts, function(err, out) {
+      code.expect(out.new).to.equal('11.0.1');
+      code.expect(out.str).to.equal('version=r11.0.1');
+      done();
+    });
+  });
+
+  lab.test('set a 4 char version with a prefix', function(done) {
+    var opts = {
+      str: 'version: v101.0.0'
+    };
+    project(opts, function(err, out) {
+      code.expect(out.new).to.equal('101.0.1');
+      code.expect(out.str).to.equal('version: v101.0.1');
+      done();
+    });
+  });
 });

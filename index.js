@@ -18,7 +18,7 @@ module.exports = function(options, cb) {
   var opts = extend(defaultOpts, options);
 
   var regex = opts.regex || new RegExp(
-    '([\'|\"]?' + opts.key + '[\'|\"]?[ ]*[:=][ ]*[\'|\"]?.?)(\\d+\\.\\d+\\.\\d+)' +
+    '([\'|\"]?' + opts.key + '[\'|\"]?[ ]*[:=][ ]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)' +
     '(-[0-9A-Za-z\.-]+)?([\'|\"]?)', 'i');
 
   if (opts.global) {
