@@ -52,6 +52,20 @@ Set the versioning key
     Type: `String`
     Default: `version`
 
+### options.case
+Set case insensitive matching
+
+This option enables matching a specific Case Sensitive selector
+```xml
+<xml>
+  <version>nope</version>
+  <Version>1.2.3</Version>
+</xml>
+```
+
+    Type: `Boolean`
+    Default: `false`
+
 ### options.version
 Set a specific version to bump to.
 

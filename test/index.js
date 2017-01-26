@@ -234,6 +234,18 @@ lab.experiment(PROJECT_NAME, function() {
     });
   });
 
+  lab.test('bump version in specific xml tag with `case: true`', function(done) {
+    var opts = {
+      str: '<projectVersion>1.2.3</projectVersion><version>1.0.0</version>',
+      case: true
+    };
+    project(opts, function(err, out) {
+      code.expect(out.new).to.equal('1.0.1');
+      code.expect(out.str).to.equal('<projectVersion>1.2.3</projectVersion><version>1.0.1</version>');
+      done();
+    });
+  });
+
   lab.test('bump version with a prefix', function(done) {
     var opts = {
       str: 'version=v1.0.0'

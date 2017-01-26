@@ -12,14 +12,15 @@ module.exports = function(options, cb) {
 
   var defaultOpts = {
     key: 'version',
-    type: 'patch'
+    type: 'patch',
+    case: false
   }
 
   var opts = extend(defaultOpts, options);
 
   var regex = opts.regex || new RegExp(
     '([<|\'|\"]?' + opts.key + '[>|\'|\"]?[ ]*[:=]?[ ]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)' +
-    '(-[0-9A-Za-z\.-]+)?([\'|\"|<' + opts.key + '>]?)', 'i');
+    '(-[0-9A-Za-z\.-]+)?([\'|\"|<' + opts.key + '>]?)', + opts.case ? '' : 'i');
 
   if (opts.global) {
     regex = new RegExp(regex.source, 'gi');
