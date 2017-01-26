@@ -18,8 +18,8 @@ module.exports = function(options, cb) {
   var opts = extend(defaultOpts, options);
 
   var regex = opts.regex || new RegExp(
-    '([\'|\"]?' + opts.key + '[\'|\"]?[ ]*[:=][ ]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)' +
-    '(-[0-9A-Za-z\.-]+)?([\'|\"]?)', 'i');
+    '([<|\'|\"]?' + opts.key + '[>|\'|\"]?[ ]*[:=]?[ ]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)' +
+    '(-[0-9A-Za-z\.-]+)?([\'|\"|<' + opts.key + '>]?)', 'i');
 
   if (opts.global) {
     regex = new RegExp(regex.source, 'gi');
