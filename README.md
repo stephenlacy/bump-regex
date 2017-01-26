@@ -64,6 +64,11 @@ Set the prerelase tag to use
     Type: `String`
     Default: `null`
 
+### options.regex
+Set the version selector regex
+
+    Type: `RegEx`
+
 Example:
 
 ```js
