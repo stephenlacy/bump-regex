@@ -68,7 +68,18 @@ lab.experiment(PROJECT_NAME, function() {
       code.expect(out.str).to.equal('{"appversion":"0.1.1"}');
       done();
     });
+  });
 
+  lab.test('set key with dash', function(done) {
+    var opts = {
+      str: JSON.stringify({'latest-release': '0.1.1'}),
+      key: 'latest-release'
+    };
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"latest-release":"0.1.2"}');
+      done();
+    });
   });
 
   lab.test('set preid', function(done) {
@@ -83,7 +94,6 @@ lab.experiment(PROJECT_NAME, function() {
       code.expect(out.str).to.equal('{"version":"0.1.1-thing.0"}');
       done();
     });
-
   });
 
   lab.test('set preid', function(done) {

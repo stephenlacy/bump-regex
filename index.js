@@ -20,7 +20,7 @@ module.exports = function(options, cb) {
 
   var regex = opts.regex || new RegExp(
     '([<|\'|\"]?' + opts.key + '[>|\'|\"]?[ ]*[:=]?[ ]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)' +
-    '(-[0-9A-Za-z\.-]+)?([\'|\"|<' + opts.key + '>]?)', + opts.case ? '' : 'i');
+    '(-[0-9A-Za-z\.-]+)?([\'|\"|<]?)', + opts.case ? '' : 'i');
 
   if (opts.global) {
     regex = new RegExp(regex.source, 'gi');
