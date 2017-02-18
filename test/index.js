@@ -82,6 +82,17 @@ lab.experiment(PROJECT_NAME, function() {
     });
   });
 
+  lab.test('bump version in xml files with dash', function(done) {
+    var opts = {
+      str: '<latest-version>1.0.0</latest-version>'
+    };
+    project(opts, function(err, out) {
+      code.expect(out.new).to.equal('1.0.1');
+      code.expect(out.str).to.equal('<latest-version>1.0.1</latest-version>');
+      done();
+    });
+  });
+
   lab.test('set preid', function(done) {
     var opts = {
       str: JSON.stringify({version: '0.1.0'}),
