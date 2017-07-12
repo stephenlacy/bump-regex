@@ -310,4 +310,15 @@ lab.experiment(PROJECT_NAME, function() {
       done();
     });
   });
+
+  lab.test('bump php/text/whatever version', function(done) {
+    var opts = {
+      str: '\n * Version: 3.0.0'
+    };
+    project(opts, function(err, out) {
+      code.expect(out.new).to.equal('3.0.1');
+      code.expect(out.str).to.equal('\n * Version: 3.0.1');
+      done();
+    });
+  });
 });
