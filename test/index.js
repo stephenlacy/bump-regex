@@ -321,4 +321,22 @@ lab.experiment(PROJECT_NAME, function() {
       done();
     });
   });
+
+  lab.test('set keys (array)', function(done) {
+    var opts = {
+      str: JSON.stringify({
+        appversion: '0.1.0',
+        anotherVersion: '0.1.0',
+        donotbumpme: '0.1.0'
+      }),
+      keys: ['appversion', 'anotherversion']
+    };
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal(
+        '{"appversion":"0.1.1","anotherVersion":"0.1.1","donotbumpme":"0.1.0"}'
+      );
+      done();
+    });
+  });
 });
