@@ -52,6 +52,12 @@ Set the versioning key
     Type: `String`
     Default: `version`
 
+### options.keys
+Sets multiple versioning keys.
+
+    Type: `Array` of `String`s
+    Default: null
+
 ### options.case
 Set case insensitive matching
 

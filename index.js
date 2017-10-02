@@ -13,21 +13,29 @@ module.exports = function(options, cb) {
   var defaultOpts = {
     key: 'version',
     type: 'patch',
-    case: false
+    case: false,
+    keys: null
   }
 
   var opts = extend(defaultOpts, options);
 
-  var regex = opts.regex || new RegExp(
-    '([<|\'|\"]?' + opts.key + '[>|\'|\"]?[ ]*[:=]?[ ]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)' +
-    '(-[0-9A-Za-z\.-]+)?([\'|\"|<]?)', + opts.case ? '' : 'i');
+  var keyRegex = opts.key
 
-  if (opts.global) {
+  if (opts.keys) {
+    keyRegex = opts.keys.join('|');
+  }
+
+  var regex = opts.regex || new RegExp(
+    '([<|\'|\"]?(' + keyRegex + ')[>|\'|\"]?[ ]*[:=]?[ ]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)' +
+    '(-[0-9A-Za-z\.-]+)?([\'|\"|<]?)', + opts.case ? '' : 'i'
+  );
+
+  if (opts.global || (opts.keys && opts.keys.length > 1)) {
     regex = new RegExp(regex.source, 'gi');
   }
 
   var parsedOut;
-  opts.str = opts.str.replace(regex, function(match, prefix, parsed, prerelease, suffix) {
+  opts.str = opts.str.replace(regex, function(match, prefix, key, parsed, prerelease, suffix) {
     parsed = parsed + (prerelease || '')
     parsedOut = parsed;
     if (!semver.valid(parsed) && !opts.version) {
