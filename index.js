@@ -26,7 +26,7 @@ module.exports = function(options, cb) {
   }
 
   var regex = opts.regex || new RegExp(
-    '([<|\'|\"]?(' + keyRegex + ')[>|\'|\"]?[ ]*[:=]?[ ]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)' +
+    '([<|\'|\"]?(' + keyRegex + ')[>|\'|\"]?[ ]*[:=]?[ |>]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)' +
     '(-[0-9A-Za-z\.-]+)?([\'|\"|<]?)', + opts.case ? '' : 'i'
   );
 

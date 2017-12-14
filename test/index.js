@@ -107,7 +107,7 @@ lab.experiment(PROJECT_NAME, function() {
     });
   });
 
-  lab.test('set preid', function(done) {
+  lab.test('update preid', function(done) {
     var opts = {
       str: JSON.stringify({version: '0.1.0-thing.0'}),
       type: 'prerelease',
@@ -318,6 +318,19 @@ lab.experiment(PROJECT_NAME, function() {
     project(opts, function(err, out) {
       code.expect(out.new).to.equal('3.0.1');
       code.expect(out.str).to.equal('\n * Version: 3.0.1');
+      done();
+    });
+  });
+
+  lab.test('bump php array version', function(done) {
+    var opts = {
+      type: 'prerelease',
+      str: "'version' => '3.0.0-alpha.0',",
+      preid: 'alpha'
+    };
+    project(opts, function(err, out) {
+      code.expect(out.new).to.equal('3.0.0-alpha.1');
+      code.expect(out.str).to.equal('\'version\' => \'3.0.0-alpha.1\',');
       done();
     });
   });
