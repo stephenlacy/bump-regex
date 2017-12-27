@@ -26,8 +26,24 @@ module.exports = function(options, cb) {
   }
 
   var regex = opts.regex || new RegExp(
-    '([<|\'|\"]?(' + keyRegex + ')[>|\'|\"]?[ ]*[:=]?[ |>]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)' +
-    '(-[0-9A-Za-z\.-]+)?([\'|\"|<]?)', + opts.case ? '' : 'i'
+    [
+      // Match Key, e.g. "key": " OR 'key': ' OR <key>
+      '([<|\'|\"]?(',
+      keyRegex,
+      ')[>|\'|\"]?[ ]*[:=]?[ |>]*[\'|\"]?[a-z]?)',
+      
+      // Match Semver version identifier, e.g.: x.y.z
+      '(\\d+\\.\\d+\\.\\d+)',
+      
+      // Match Semver pre-release identifier, e.g. -pre.0-1
+      '(-[0-9A-Za-z\.-]+)?',
+      
+      // Match Semver metadata identifier, e.g. +meta.0-1
+      '(\\+[0-9A-Za-z\.-]+)?',
+      
+      // Match end of version value: e.g. ", ', <
+      '([\'|\"|<]?)'
+    ].join(''), + opts.case ? '' : 'i'
   );
 
   if (opts.global || (opts.keys && opts.keys.length > 1)) {
@@ -35,7 +51,8 @@ module.exports = function(options, cb) {
   }
 
   var parsedOut;
-  opts.str = opts.str.replace(regex, function(match, prefix, key, parsed, prerelease, suffix) {
+  opts.str = opts.str.replace(regex, function(match, prefix, key, parsed, prerelease, metadata, suffix) {
+
     parsed = parsed + (prerelease || '')
     parsedOut = parsed;
     if (!semver.valid(parsed) && !opts.version) {
