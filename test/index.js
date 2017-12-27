@@ -58,6 +58,18 @@ lab.experiment(PROJECT_NAME, function() {
     });
   });
 
+  lab.test('set version with metadata', function(done) {
+    var opts = {
+      str: JSON.stringify({version: '3.2.1+meta.1'})
+    };
+    opts.version = '3.2.1+meta.2';
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"version":"3.2.1+meta.2"}');
+      done();
+    });
+  });
+
   lab.test('set key', function(done) {
     var opts = {
       str: JSON.stringify({appversion: '0.1.0'}),
