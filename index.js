@@ -63,11 +63,11 @@ module.exports = function(options, cb) {
     opts.prev = parsed;
     opts.new = version;
     
-    if (opts.keepmetadata && !opts.version) {
-      suffix = suffix + metadata;
+    if (!opts.keepmetadata || !!opts.version) {
+      metadata = '';
     }
     
-    return prefix + version + (suffix || '');
+    return prefix + version + (metadata || '') + (suffix || '');
   });
 
   if (!parsedOut) {
