@@ -364,4 +364,113 @@ lab.experiment(PROJECT_NAME, function() {
       done();
     });
   });
+
+
+  lab.test('patch with keepmetadata false', function(done) {
+    var opts = {
+      type: 'patch',
+      str: JSON.stringify({version: '0.1.0+meta.1'})
+    };
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"version":"0.1.1"}');
+      done();
+    });
+  });
+
+  lab.test('minor with keepmetadata false', function(done) {
+    var opts = {
+      type: 'minor',
+      str: JSON.stringify({version: '0.1.0+meta.1'})
+    };
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"version":"0.2.0"}');
+      done();
+    });
+  });
+
+  lab.test('major with keepmetadata false', function(done) {
+    var opts = {
+      type: 'major',
+      str: JSON.stringify({version: '0.1.0+meta.1'})
+    };
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"version":"1.0.0"}');
+      done();
+    });
+  });
+
+  lab.test('update existing prerelease without preid with keepmetadata false', function(done) {
+    var opts = {
+      str: JSON.stringify({version: '0.1.0-rc.0+meta.1'}),
+      type: 'prerelease'
+    };
+
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"version":"0.1.0-rc.1"}');
+      done();
+    });
+
+  });
+
+  lab.test('patch with keepmetadata true', function(done) {
+    var opts = {
+      type: 'patch',
+      str: JSON.stringify({version: '0.1.0+meta.1'}),
+      keepmetadata: true
+    };
+
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"version":"0.1.1+meta.1"}');
+      done();
+    });
+  });
+
+  lab.test('minor with keepmetadata true', function(done) {
+    var opts = {
+      type: 'minor',
+      str: JSON.stringify({version: '0.1.0+meta.1'}),
+      keepmetadata: true
+    };
+
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"version":"0.2.0+meta.1"}');
+      done();
+    });
+  });
+
+  lab.test('major with keepmetadata true', function(done) {
+    var opts = {
+      type: 'major',
+      str: JSON.stringify({version: '0.1.0+meta.1'}),
+      keepmetadata: true
+    };
+
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"version":"1.0.0+meta.1"}');
+      done();
+    });
+  });
+
+  lab.test('update existing prerelease without preid with keepmetadata true', function(done) {
+    var opts = {
+      str: JSON.stringify({version: '0.1.0-rc.0+meta.1'}),
+      type: 'prerelease',
+      keepmetadata: true
+    };
+
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('{"version":"0.1.0-rc.1+meta.1"}');
+      done();
+    });
+
+  });
+
 });

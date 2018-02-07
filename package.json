@@ -18,7 +18,7 @@
     "lab": "^10.2.0"
   },
   "scripts": {
-    "test": "lab test/*.js -v"
+    "test": "lab test/index.js -v"
   },
   "engines": {
     "node": ">= 0.12.0"

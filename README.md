@@ -89,6 +89,13 @@ Set the version selector regex
 
     Type: `RegEx`
 
+### options.keepmetadata
+Keep the metadata of the old version after bumping
+(exception: you are using options.version)
+
+    Type: `Boolean`
+    Default: `false`
+
 Example:
 
 ```js

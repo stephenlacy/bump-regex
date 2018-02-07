@@ -14,7 +14,8 @@ module.exports = function(options, cb) {
     key: 'version',
     type: 'patch',
     case: false,
-    keys: null
+    keys: null,
+    keepmetadata: false
   }
 
   var opts = extend(defaultOpts, options);
@@ -61,7 +62,12 @@ module.exports = function(options, cb) {
     var version = opts.version || semver.inc(parsed, opts.type, opts.preid);
     opts.prev = parsed;
     opts.new = version;
-    return prefix + version + (suffix || '');
+    
+    if (!opts.keepmetadata || !!opts.version) {
+      metadata = '';
+    }
+    
+    return prefix + version + (metadata || '') + (suffix || '');
   });
 
   if (!parsedOut) {
