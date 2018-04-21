@@ -62,6 +62,10 @@ module.exports = function(options, cb) {
     var version = opts.version || semver.inc(parsed, opts.type, opts.preid);
     opts.prev = parsed;
     opts.new = version;
+
+    if (opts.version) {
+      opts.type = semver.diff(opts.prev, opts.new);
+    }
     
     if (!opts.keepmetadata || !!opts.version) {
       metadata = '';

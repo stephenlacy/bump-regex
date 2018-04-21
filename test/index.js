@@ -235,6 +235,17 @@ lab.experiment(PROJECT_NAME, function() {
     });
   });
 
+  lab.test('return update type of set version', function(done) {
+    var opts = {
+      str: JSON.stringify({version: '0.0.1'}),
+      version: '1.0.0'
+    };
+    project(opts, function(err, out) {
+      code.expect(out.type).to.equal('major');
+      done();
+    });
+  });
+
   lab.test('return prev version', function(done) {
     var opts = {
       str: JSON.stringify({version: '1.2.0'})
