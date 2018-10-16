@@ -10,8 +10,7 @@
   "author": "Steve Lacy <me@slacy.me> (http://slacy.me)",
   "main": "./index.js",
   "dependencies": {
-    "semver": "^5.1.0",
-    "xtend": "^4.0.1"
+    "semver": "^5.1.0"
   },
   "devDependencies": {
     "code": "^2.1.0",
@@ -21,7 +20,7 @@
     "test": "lab test/index.js -v"
   },
   "engines": {
-    "node": ">= 0.12.0"
+    "node": ">= 4.0.0"
   },
   "license": "MIT",
   "bugs": {
