@@ -484,4 +484,18 @@ lab.experiment(PROJECT_NAME, function() {
 
   });
 
+  lab.test('C# AssemblyVersion key and functional versions', function(done) {
+    var opts = {
+      str: '[assembly: AssemblyVersion("1.0.0")]',
+      type: 'patch'
+    };
+
+    project(opts, function(err, out) {
+      code.expect(err).to.equal(null);
+      code.expect(out.str).to.equal('[assembly: AssemblyVersion("1.0.1")]');
+      done();
+    });
+
+  });
+
 });

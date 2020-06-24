@@ -30,7 +30,7 @@ module.exports = function(options, cb) {
       // Match Key, e.g. "key": " OR 'key': ' OR <key>
       '([<|\'|\"]?(',
       keyRegex,
-      ')[>|\'|\"]?[ ]*[:=]?[ |>]*[\'|\"]?[a-z]?)',
+      ')[>|\'|\"]?[ ]*[:=]?[ |>|\(]*[\'|\"]?[a-z]?)',
 
       // Match Semver version identifier, e.g.: x.y.z
       '(\\d+\\.\\d+\\.\\d+)',
@@ -42,7 +42,7 @@ module.exports = function(options, cb) {
       '(\\+[0-9A-Za-z\.-]+)?',
 
       // Match end of version value: e.g. ", ', <
-      '([\'|\"|<]?)'
+      '([\'|\"|<|\)]?)'
     ].join(''), + opts.case ? '' : 'i'
   );
 
