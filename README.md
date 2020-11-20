@@ -44,7 +44,7 @@ Semver version type to bump
 
     Type: `String`
     Default: `patch`
-    Valid values: `major|minor|patch|prerelease`
+    Valid values: `major|minor|patch|prerelease|premajor|preminor|prepatch`
 
 ### options.key
 Set the versioning key
